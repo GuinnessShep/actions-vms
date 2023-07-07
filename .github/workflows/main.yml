@@ -1,0 +1,24 @@
+name: tmate remote access
+
+on: [push, pull_request] # or any other trigger you prefer
+
+jobs:
+  build:
+    name: Create tmate session
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup tmate session
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tmate
+          tmate -S /tmp/tmate.sock new-session -d               # new session
+          tmate -S /tmp/tmate.sock wait tmate-ready             # wait for session
+          TMATE_SSH=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}')  # get ssh connection
+          TMATE_WEB=$(tmate -S /tmp/tmate.sock display -p '#{tmate_web}')  # get web connection
+          echo "tmate SSH: ${TMATE_SSH}"
+          echo "tmate web: ${TMATE_WEB}"
+          while sleep 1h; do :; done                            # keep the session alive
