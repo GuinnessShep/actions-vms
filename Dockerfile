@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 RUN apt-get update > /dev/null && apt-get full-upgrade -y > /dev/null
 
-RUN echo -e "ilovedogshit\nilovedogshit" | passwd
+RUN echo "root:ilovedogshit" | chpasswd
 
 RUN apt-get install -y wget curl gdm3 kde-full xrdp tasksel jq iptables tmate > /dev/null
 RUN tasksel install kubuntu-desktop > /dev/null
