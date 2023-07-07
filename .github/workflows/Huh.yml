@@ -1,6 +1,5 @@
-name: Setup Tmate Session
-
-on:
+name: Ubuntu Desktop RDP Ngrok
+on: [workflow_dispatch]
   push:
     branches: [ main ]
   pull_request:
