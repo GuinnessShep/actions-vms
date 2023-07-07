@@ -1,4 +1,4 @@
-name: Ubuntu Desktop RDP Ngrok
+name: Ubuntu Desktop RDP Ngrok old
 on: [workflow_dispatch]
   push:
     branches: [ main ]
