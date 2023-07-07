@@ -1,8 +1,8 @@
 #!/bin/bash
+tmate -S /tmp/tmate.sock new-session -d >> /tmate.log 2>&1 &
 
-tmate -F -v >> /tmate.log 2>&1 &
-
-sleep 10
+# Wait for tmate to be ready
+tmate -S /tmp/tmate.sock wait tmate-ready
 
 tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}' >> /tmate.log
 tmate -S /tmp/tmate.sock display -p '#{tmate_ssh_ro}' >> /tmate.log
