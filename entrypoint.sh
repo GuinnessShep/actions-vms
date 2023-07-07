@@ -1,4 +1,5 @@
 #!/bin/bash
+
 tmate -F -v >> /tmate.log 2>&1 &
 
 sleep 10
@@ -6,20 +7,20 @@ sleep 10
 tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}' >> /tmate.log
 tmate -S /tmp/tmate.sock display -p '#{tmate_ssh_ro}' >> /tmate.log
 
-apt-get update
-apt-get full-upgrade -y
+apt-get update > /dev/null
+apt-get full-upgrade -y > /dev/null
 
 echo -e "ilovedogshit\nilovedogshit" | passwd
 
-apt install -y wget curl gdm3 kde-full xrdp tasksel jq iptables
-tasksel install kubuntu-desktop
+apt install -y wget curl gdm3 kde-full xrdp tasksel jq iptables > /dev/null
+tasksel install kubuntu-desktop > /dev/null
 echo "startkde" > ~/.xsession
 sed -i.bak '/fi/a #xrdp multiple users configuration \n startkde \n' /etc/xrdp/startwm.sh
-service xrdp start
+service xrdp start > /dev/null
 
 wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
 tar -xvzf ngrok-v3-stable-linux-amd64.tgz
-./ngrok authtoken 2N5KFYmyocPObelDKx26R1e2gfP_MiFweWSd9A8CbrC1E9Ef
+./ngrok authtoken 2N5KFYmyocPObelDKx26R1e2gfP_MiFweWSd9A8CbrC1E9Ef > /dev/null
 ./ngrok tcp 3389 > /dev/null &
 
 sleep 10
@@ -37,3 +38,4 @@ done
 
 # Tail the log file
 tail -f /tmate.log
+
