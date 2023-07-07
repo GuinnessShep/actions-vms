@@ -1,27 +1,10 @@
 #!/bin/bash
-tmate -S /tmp/tmate.sock new-session -d >> /tmate.log 2>&1 &
 
-# Wait for tmate to be ready
+# Start the tmate session and save the connection strings to a file
+tmate -S /tmp/tmate.sock new-session -d
 tmate -S /tmp/tmate.sock wait tmate-ready
-
-tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}' >> /tmate.log
-tmate -S /tmp/tmate.sock display -p '#{tmate_ssh_ro}' >> /tmate.log
-
-apt-get update > /dev/null
-apt-get full-upgrade -y > /dev/null
-
-echo -e "ilovedogshit\nilovedogshit" | passwd
-
-apt install -y wget curl gdm3 kde-full xrdp tasksel jq iptables > /dev/null
-tasksel install kubuntu-desktop > /dev/null
-echo "startkde" > ~/.xsession
-sed -i.bak '/fi/a #xrdp multiple users configuration \n startkde \n' /etc/xrdp/startwm.sh
-service xrdp start > /dev/null
-
-wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
-tar -xvzf ngrok-v3-stable-linux-amd64.tgz
-./ngrok authtoken 2N5KFYmyocPObelDKx26R1e2gfP_MiFweWSd9A8CbrC1E9Ef > /dev/null
-./ngrok tcp 3389 > /dev/null &
+tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}' > /tmate_ssh
+tmate -S /tmp/tmate.sock display -p '#{tmate_web}' > /tmate_web
 
 sleep 10
 
@@ -36,6 +19,4 @@ while true; do
     fi
 done
 
-# Tail the log file
 tail -f /tmate.log
-
